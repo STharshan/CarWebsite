@@ -1,45 +1,49 @@
-"use client";
-
 import React from "react";
-import { Facebook, Instagram, MapPin, Phone } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Facebook, Instagram, MapPin, Phone, Mail, Wrench } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white font-['Oswald']">
+    <footer className="bg-gradient-to-b from-gray-900 to-black text-white font-['Oswald']">
 
       {/* ================= TOP BRAND STRIP ================= */}
-      <div className="border-b border-[#1C1C1C] py-10">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-widest uppercase">
-            Carbon  <span className="text-[#D70C09]">Cleaning</span>
-          </h2>
-          <p className="text-[#868386] mt-3 max-w-xl mx-auto">
-            Performance tuning, emissions solutions & professional ECU services
+      <div className="border-b border-gray-800 py-12 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-900/5 to-transparent"></div>
+        <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <Wrench className="text-red-600 animate-pulse" size={32} />
+            <h2 className="text-3xl md:text-5xl font-bold tracking-widest uppercase">
+              Auto<span className="text-red-600">Tech</span> Pro
+            </h2>
+          </div>
+          <p className="text-gray-400 mt-3 max-w-xl mx-auto text-sm md:text-base tracking-wide">
+            Premium Performance Tuning & Professional ECU Services
           </p>
         </div>
       </div>
 
       {/* ================= MAIN FOOTER ================= */}
-      <div className="max-w-7xl mx-auto px-6 py-14 grid gap-12 md:grid-cols-3">
+      <div className="max-w-7xl mx-auto px-6 py-16 grid gap-12 md:grid-cols-3">
 
         {/* SERVICES */}
-        <div>
-          <h3 className="uppercase tracking-wide text-lg mb-5 text-[#C0C0C0]">
-            Services
+        <div className="group">
+          <h3 className="uppercase tracking-wider text-lg mb-6 text-gray-300 font-semibold border-b-2 border-red-600 pb-2 inline-block">
+            Our Services
           </h3>
           <ul className="space-y-3 text-sm">
             {[
-              "ECU Remapping",
-              "AdBlue, DPF & EGR Solutions",
-              "TCU Remapping",
-              "ECU Cloning",
+              "Performance Remapping",
+              "Engine Diagnostics",
+              "Emissions Solutions",
+              "Transmission Tuning",
+              "ECU Programming",
+              "Vehicle Optimization",
             ].map((service, i) => (
-              <li key={i}>
+              <li key={i} className="transform transition-all duration-300 hover:translate-x-2">
                 <a
                   href="#services"
-                  className="text-[#868386] hover:text-[#D70C09] transition"
+                  className="text-gray-400 hover:text-red-600 transition flex items-center gap-2 group"
                 >
+                  <span className="w-1.5 h-1.5 bg-red-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
                   {service}
                 </a>
               </li>
@@ -49,98 +53,109 @@ export default function Footer() {
 
         {/* CONTACT */}
         <div>
-          <h3 className="uppercase tracking-wide text-lg mb-5 text-[#C0C0C0]">
-            Contact
+          <h3 className="uppercase tracking-wider text-lg mb-6 text-gray-300 font-semibold border-b-2 border-red-600 pb-2 inline-block">
+            Get In Touch
           </h3>
 
-          <div className="space-y-4 text-sm text-[#868386]">
+          <div className="space-y-5 text-sm text-gray-400">
 
-            <div className="flex gap-3 items-start">
-              <MapPin size={16} className="text-[#D70C09] mt-1" />
+            <div className="flex gap-3 items-start group hover:text-gray-300 transition-colors">
+              <MapPin size={18} className="text-red-600 mt-1 flex-shrink-0" />
               <p>
-                Que Sera, Pentre Hill<br />
-                Flint Mountain, Flint<br />
-                United Kingdom
+                123 Performance Drive<br />
+                Automotive District<br />
+                Tech City, TC 12345
               </p>
             </div>
 
-            <div className="flex gap-3 items-center">
-              <Phone size={16} className="text-[#D70C09]" />
-              <a href="tel:+447392791919" className="hover:text-[#D70C09]">
-                +44 7392 791919
+            <div className="flex gap-3 items-center group hover:text-gray-300 transition-colors">
+              <Phone size={18} className="text-red-600 flex-shrink-0" />
+              <a href="tel:+1234567890" className="hover:text-red-600 transition-colors">
+                +1 (234) 567-890
+              </a>
+            </div>
+
+            <div className="flex gap-3 items-center group hover:text-gray-300 transition-colors">
+              <Mail size={18} className="text-red-600 flex-shrink-0" />
+              <a href="mailto:info@autotechpro.com" className="hover:text-red-600 transition-colors">
+                info@autotechpro.com
               </a>
             </div>
           </div>
         </div>
 
-        {/* SOCIAL */}
+        {/* SOCIAL & HOURS */}
         <div>
-          <h3 className="uppercase tracking-wide text-lg mb-5 text-[#C0C0C0]">
-            Follow Us
+          <h3 className="uppercase tracking-wider text-lg mb-6 text-gray-300 font-semibold border-b-2 border-red-600 pb-2 inline-block">
+            Connect With Us
           </h3>
 
-          <div className="flex gap-4">
+          <div className="flex gap-4 mb-8">
             <a
-              href="https://web.facebook.com/profile.php?id=100037206957303"
+              href="#"
               target="_blank"
               rel="noopener noreferrer"
               className="
-                w-10 h-10 rounded-full
-                border border-[#1C1C1C]
+                w-11 h-11 rounded-lg
+                border border-gray-800
                 flex items-center justify-center
-                text-[#868386]
-                hover:text-white hover:border-[#D70C09]
-                transition
+                text-gray-400
+                hover:text-white hover:border-red-600 hover:bg-red-600/10
+                transition-all duration-300
+                transform hover:scale-110 hover:rotate-6
               "
             >
-              <Facebook size={18} />
+              <Facebook size={20} />
             </a>
 
             <a
-              href="https://www.instagram.com/broadway_remapping_/"
+              href="#"
               target="_blank"
               rel="noopener noreferrer"
               className="
-                w-10 h-10 rounded-full
-                border border-[#1C1C1C]
+                w-11 h-11 rounded-lg
+                border border-gray-800
                 flex items-center justify-center
-                text-[#868386]
-                hover:text-white hover:border-[#D70C09]
-                transition
+                text-gray-400
+                hover:text-white hover:border-red-600 hover:bg-red-600/10
+                transition-all duration-300
+                transform hover:scale-110 hover:rotate-6
               "
             >
-              <Instagram size={18} />
+              <Instagram size={20} />
             </a>
           </div>
+
+          
         </div>
       </div>
 
       {/* ================= BOTTOM BAR ================= */}
-      <div className="border-t border-[#1C1C1C] py-6 text-center text-sm text-[#868386]">
+      <div className="border-t border-gray-800 bg-black/50 py-6">
+        <div className="max-w-7xl mx-auto px-6">
+          
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-3 text-sm text-gray-400">
+            <a href="#privacy" className="hover:text-red-600 transition-colors">
+              Privacy Policy
+            </a>
+            <span className="hidden sm:inline text-gray-700">|</span>
+            <a href="#terms" className="hover:text-red-600 transition-colors">
+              Terms & Conditions
+            </a>
+            <span className="hidden sm:inline text-gray-700">|</span>
+            <a href="#about" className="hover:text-red-600 transition-colors">
+              About Us
+            </a>
+          </div>
 
-        <div className="flex flex-col sm:flex-row justify-center gap-4 mb-2">
-          <Link to="/privacy-policy" className="hover:text-[#D70C09]">
-            Privacy Policy
-          </Link>
-          <span className="hidden sm:inline">|</span>
-          <Link to="/terms-conditions" className="hover:text-[#D70C09]">
-            Terms & Conditions
-          </Link>
+          <p className="text-center text-sm text-gray-500">
+            &copy; 2025 AutoTech Pro. All rights reserved.
+          </p>
+
+          <p className="text-center mt-2 text-xs text-gray-600">
+            Professional automotive services with cutting-edge technology
+          </p>
         </div>
-
-        <p>&copy; 2025 Broadway Remapping. All rights reserved.</p>
-
-        <p className="mt-1">
-          Powered by{" "}
-          <a
-            href="https://www.ansely.co.uk/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#D70C09] hover:underline"
-          >
-            Ansely
-          </a>
-        </p>
       </div>
     </footer>
   );
