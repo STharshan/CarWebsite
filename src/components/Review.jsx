@@ -1,134 +1,246 @@
-"use client";
-
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { FaStar, FaQuoteLeft, FaChevronLeft, FaChevronRight, FaCheckCircle } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 const reviews = [
   {
-    name: "Lee Patrick",
-    text:
-      "Amazing difference after remap — more power and better fuel economy. Fantastic service and great communication.",
+    name: "Michael Anderson",
+    text: "Outstanding service from start to finish. The team was professional, punctual, and the results exceeded my expectations. My vehicle runs like new!",
+    rating: 5,
+    service: "Engine Service",
   },
   {
-    name: "Tony Roberts",
-    text:
-      "Loss of power fixed in under an hour. Car now drives perfectly and is more economical. Highly recommended.",
+    name: "Sarah Mitchell",
+    text: "Incredible improvement in performance and fuel efficiency. The mobile service was so convenient - they came to my office and completed everything in under an hour.",
+    rating: 5,
+    service: "Carbon Cleaning",
   },
   {
-    name: "Scott Williams",
-    text:
-      "Second remap done here. Only person I recommend to my club members. Top quality work.",
+    name: "David Chen",
+    text: "Best automotive service I've experienced. Transparent pricing, expert knowledge, and genuine care for customer satisfaction. Highly recommend!",
+    rating: 5,
+    service: "Full Service",
   },
   {
-    name: "James Burns",
-    text:
-      "Very knowledgeable and reliable. Van has been running perfectly since the work.",
+    name: "Emma Thompson",
+    text: "The difference is night and day. My car had been sluggish for months and now it drives perfectly. The technician explained everything clearly.",
+    rating: 5,
+    service: "Performance Tune",
   },
   {
-    name: "Emma Raistrick",
-    text:
-      "Really happy with the results. More power and smooth driving. Would definitely use again.",
+    name: "James Wilson",
+    text: "Professional, reliable, and excellent value. They diagnosed the issue quickly and fixed it properly. Will definitely use again.",
+    rating: 5,
+    service: "Diagnostic Service",
   },
   {
-    name: "Jennie Burns",
-    text:
-      "Much better service than the dealership. Engine running perfectly now.",
+    name: "Lisa Parker",
+    text: "Fantastic experience! The mobile service saved me so much time. The work quality is exceptional and the results speak for themselves.",
+    rating: 5,
+    service: "Complete Service",
   },
 ];
 
-export default function ReviewsCarousel() {
-  const trackRef = useRef(null);
-  const animationRef = useRef(null);
-  const [paused, setPaused] = useState(false);
+export default function Review  () {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
   useEffect(() => {
     AOS.init({ duration: 800, once: true });
+  }, []);
 
-    const track = trackRef.current;
-    let scrollPos = 0;
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % reviews.length);
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
 
-    const animate = () => {
-      if (!paused && track) {
-        scrollPos += 0.35; // 🔥 smooth speed
-        if (scrollPos >= track.scrollWidth / 2) {
-          scrollPos = 0;
-        }
-        track.scrollLeft = scrollPos;
-      }
-      animationRef.current = requestAnimationFrame(animate);
-    };
+  const nextReview = () => {
+    setActiveIndex((prev) => (prev + 1) % reviews.length);
+    setIsAutoPlaying(false);
+  };
 
-    animationRef.current = requestAnimationFrame(animate);
+  const prevReview = () => {
+    setActiveIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
+    setIsAutoPlaying(false);
+  };
 
-    return () => cancelAnimationFrame(animationRef.current);
-  }, [paused]);
+  const goToReview = (index) => {
+    setActiveIndex(index);
+    setIsAutoPlaying(false);
+  };
 
   return (
     <section
       id="testimonials"
-      className="bg-black py-24 text-white font-['Oswald']"
+      className="relative bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 py-20 px-4 sm:px-6 overflow-hidden"
     >
-      {/* HEADER */}
-      <div className="max-w-6xl mx-auto px-6 text-center mb-14" data-aos="fade-up">
-        <h2 className="text-4xl md:text-5xl font-bold uppercase tracking-widest">
-          Customer <span className="text-red-600">Reviews</span>
-        </h2>
-        <div className="w-20 h-[3px] bg-red-600 mx-auto mt-4" />
-        <p className="text-gray-400 mt-6 max-w-xl mx-auto">
-          Trusted by real customers for real results 기억
-        </p>
+      {/* Background Elements */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-1/4 left-0 w-96 h-96 bg-yellow-600 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-red-600 rounded-full blur-3xl"></div>
       </div>
 
-      {/* CAROUSEL */}
-      <div
-        ref={trackRef}
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        className="
-          flex gap-6 px-6
-          overflow-x-auto
-          scroll-smooth
-          scrollbar-hide
-        "
-      >
-        {[...reviews, ...reviews].map((review, i) => (
-          <div
-            key={i}
-            className="
-              w-[340px] md:w-[380px]
-              h-[240px]
-              bg-[#0E0E0E]
-              border border-white/10
-              p-6
-              flex flex-col justify-between
-              rounded-md
-              hover:border-red-600/50
-              transition
-              flex-shrink-0
-            "
-          >
-            <p className="text-gray-300 text-sm leading-relaxed line-clamp-5">
-              “{review.text}”
-            </p>
+      {/* Radial Grid Pattern */}
+      <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_at_center,white_1px,transparent_1px)] bg-[size:40px_40px]"></div>
 
-            <span className="text-white font-semibold uppercase tracking-wide text-sm pt-4">
-              — {review.name}
-            </span>
+      <div className="relative z-10 max-w-7xl mx-auto">
+        
+        {/* Header */}
+        <div className="text-center mb-16" data-aos="fade-up">
+          <div className="inline-flex items-center gap-2 bg-yellow-600/20 border border-yellow-600/50 text-yellow-400 px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider mb-4">
+            <FaStar className="text-yellow-500" />
+            Customer Reviews
           </div>
-        ))}
-      </div>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
+            What Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-orange-500">Clients Say</span>
+          </h2>
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            Real feedback from satisfied customers who trust us with their vehicles
+          </p>
+        </div>
 
-      {/* HIDE SCROLLBAR */}
-      <style jsx global>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
+        {/* Main Review Display */}
+        <div className="max-w-5xl mx-auto mb-12" data-aos="fade-up">
+          <div className="relative bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm border border-slate-700 rounded-3xl p-8 md:p-12">
+            
+            {/* Quote Icon */}
+            <div className="absolute top-8 left-8 w-16 h-16 bg-gradient-to-br from-yellow-600 to-orange-600 rounded-2xl flex items-center justify-center opacity-20">
+              <FaQuoteLeft className="text-3xl text-white" />
+            </div>
+
+            {/* Stars */}
+            <div className="flex justify-center gap-2 mb-6">
+              {[...Array(reviews[activeIndex].rating)].map((_, idx) => (
+                <FaStar key={idx} className="text-yellow-500 text-2xl" />
+              ))}
+            </div>
+
+            {/* Review Text */}
+            <div className="relative z-10">
+              <p className="text-xl md:text-2xl text-gray-200 leading-relaxed text-center mb-8 min-h-[120px] flex items-center justify-center">
+                "{reviews[activeIndex].text}"
+              </p>
+
+              {/* Author Info */}
+              <div className="flex flex-col items-center gap-3">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-red-600 to-orange-600 flex items-center justify-center text-2xl font-bold">
+                  {reviews[activeIndex].name.charAt(0)}
+                </div>
+                <div className="text-center">
+                  <p className="text-xl font-bold text-white">{reviews[activeIndex].name}</p>
+                  <p className="text-sm text-gray-400">{reviews[activeIndex].service}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Navigation Arrows */}
+            <button
+              onClick={prevReview}
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-600 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+            >
+              <FaChevronLeft className="text-white" />
+            </button>
+            <button
+              onClick={nextReview}
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-600 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+            >
+              <FaChevronRight className="text-white" />
+            </button>
+
+          </div>
+
+          {/* Pagination Dots */}
+          <div className="flex justify-center gap-2 mt-8">
+            {reviews.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => goToReview(idx)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  idx === activeIndex 
+                    ? 'w-12 bg-gradient-to-r from-yellow-500 to-orange-500' 
+                    : 'w-2 bg-gray-600 hover:bg-gray-500'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Review Grid - Thumbnails */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {reviews.map((review, idx) => (
+            <div
+              key={idx}
+              data-aos="fade-up"
+              data-aos-delay={idx * 100}
+              onClick={() => goToReview(idx)}
+              className={`cursor-pointer bg-gradient-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-sm border rounded-2xl p-6 transition-all duration-300 hover:scale-105 ${
+                idx === activeIndex 
+                  ? 'border-yellow-500/50 shadow-lg shadow-yellow-500/20' 
+                  : 'border-slate-700 hover:border-slate-600'
+              }`}
+            >
+              {/* Mini Stars */}
+              <div className="flex gap-1 mb-3">
+                {[...Array(review.rating)].map((_, i) => (
+                  <FaStar key={i} className="text-yellow-500 text-sm" />
+                ))}
+              </div>
+
+              {/* Text Preview */}
+              <p className="text-gray-300 text-sm mb-4 line-clamp-3">
+                "{review.text}"
+              </p>
+
+              {/* Author */}
+              <div className="flex items-center gap-3 pt-3 border-t border-slate-700">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-red-600 to-orange-600 flex items-center justify-center text-sm font-bold">
+                  {review.name.charAt(0)}
+                </div>
+                <div>
+                  <p className="font-semibold text-sm">{review.name}</p>
+                  <p className="text-xs text-gray-500">{review.service}</p>
+                </div>
+              </div>
+
+              {/* Active Indicator */}
+              {idx === activeIndex && (
+                <div className="absolute top-4 right-4">
+                  <div className="w-8 h-8 bg-yellow-500/20 rounded-full flex items-center justify-center">
+                    <FaCheckCircle className="text-yellow-500" />
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Stats Bar */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6" data-aos="fade-up">
+          <div className="text-center bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-6">
+            <p className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-orange-500 mb-2">500+</p>
+            <p className="text-gray-400 text-sm uppercase tracking-wider">Happy Clients</p>
+          </div>
+          <div className="text-center bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-6">
+            <p className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-orange-500 mb-2">4.9</p>
+            <p className="text-gray-400 text-sm uppercase tracking-wider">Average Rating</p>
+          </div>
+          <div className="text-center bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-6">
+            <p className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-orange-500 mb-2">98%</p>
+            <p className="text-gray-400 text-sm uppercase tracking-wider">Recommend Us</p>
+          </div>
+          <div className="text-center bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-6">
+            <p className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-orange-500 mb-2">5 ⭐</p>
+            <p className="text-gray-400 text-sm uppercase tracking-wider">Top Rated</p>
+          </div>
+        </div>
+
+      </div>
     </section>
   );
 }

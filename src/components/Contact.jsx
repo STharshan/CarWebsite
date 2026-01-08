@@ -27,11 +27,16 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="relative bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white font-['Oswald'] py-24 px-6 overflow-hidden"
+      className="relative bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 py-20 px-4 sm:px-6 overflow-hidden"
     >
-      {/* Animated background elements */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-red-600/5 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-red-600/5 rounded-full blur-3xl animate-pulse"></div>
+      {/* Background Elements */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-1/4 left-0 w-96 h-96 bg-yellow-600 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-red-600 rounded-full blur-3xl"></div>
+      </div>
+
+      {/* Radial Grid Pattern */}
+      <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_at_center,white_1px,transparent_1px)] bg-[size:40px_40px]"></div>
 
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 relative z-10">
 
